@@ -1,10 +1,10 @@
 import { Button, Loader } from '../../components';
 import { Container, Table } from './Categories.styles';
-import { useProductsPage } from './useProductsPage';
+import { useCategoriesPage } from './useCategoriesPage';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 export function CategoriesPage(): JSX.Element {
-  const { data, isLoading, deleteCategory } = useProductsPage();
+  const { data, isLoading, deleteCategory } = useCategoriesPage();
 
   return (
     <Container>
@@ -28,7 +28,7 @@ export function CategoriesPage(): JSX.Element {
                     icon={<RiDeleteBin6Line />}
                     customButton={{ backgroundColor: 'danger', color: 'white' }}
                     type='button'
-                    onClick={() => deleteCategory(value.id)}
+                    onClick={deleteCategory(value.id)}
                   >
                     Apagar
                   </Button>

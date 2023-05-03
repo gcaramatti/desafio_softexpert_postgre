@@ -2,14 +2,14 @@ import { useMutation, useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { getAllCategoriesQuery } from '../../../data/queries/category/category.queries';
 import { deleteCategoryMutation } from '../../../data/queries/category/category.mutations';
+import { confirmAlert } from 'react-confirm-alert';
 
-export function useProductsPage() {
+export function useCategoriesPage() {
   const {
     data,
     isLoading: isLoadingCategoriesQuery,
     refetch
   } = useQuery(getAllCategoriesQuery.key, getAllCategoriesQuery.query, {
-    onSuccess: data => {},
     onError: () => {
       toast.error('Erro ao recuperar listagem de categorias');
     }
@@ -23,13 +23,32 @@ export function useProductsPage() {
     {
       onSuccess: () => {
         refetch();
-        toast.success('Produto apagado com sucesso');
+        toast.success('Categoria apagada com sucesso');
+      },
+      onError: () => {
+        toast.error('Erro ao apagar categoria');
       }
     }
   );
 
   function deleteCategory(id: number) {
-    mutation.mutate(id);
+    return () =>
+      confirmAlert({
+        title: 'Apagar categoria?',
+        message: 'Essa ação não poderá ser desfeita!',
+        closeOnClickOutside: true,
+        buttons: [
+          {
+            label: 'Confirmar',
+            className: 'confirm_delete',
+            onClick: () => mutation.mutate(id)
+          },
+          {
+            className: 'cancel_delete',
+            label: 'Cancelar'
+          }
+        ]
+      });
   }
 
   return { data, isLoading: isLoadingCategoriesQuery, deleteCategory };

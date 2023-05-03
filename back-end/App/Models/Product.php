@@ -61,4 +61,24 @@ class Product {
         }
     }
 
+    public function delete($id) {
+        $sql = "DELETE FROM products WHERE id = ?";
+
+        $stmt = Model::getConn()->prepare($sql);
+        $stmt->bindValue(1, $id);
+
+        if($stmt->execute()) {
+            $category = $stmt->fetch(PDO::FETCH_OBJ);
+
+            if(!$category) {
+                return null;
+            }
+
+            return 'success';
+        } else {
+            print_r($stmt->errorInfo());
+            return null;
+        }
+    }
+
 }

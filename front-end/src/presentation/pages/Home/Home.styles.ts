@@ -27,6 +27,7 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  font-size: 1.3rem;
 
   > * {
     color: ${({ theme }) => theme.colors.primary};

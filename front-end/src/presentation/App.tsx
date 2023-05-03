@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from '../shared/styles/themes/default.theme';
 import { GlobalStyles } from '../shared/styles/GlobalStyles';
 import { Header, Toast } from './components';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function App(): JSX.Element {
   const queryClient = new QueryClient({

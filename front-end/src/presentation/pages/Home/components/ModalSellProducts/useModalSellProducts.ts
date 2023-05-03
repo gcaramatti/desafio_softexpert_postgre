@@ -91,9 +91,6 @@ export function useModalSellProducts() {
             'selectProductOptions',
             JSON.stringify(selectProductOptions)
           );
-      },
-      onError: () => {
-        toast.error('Erro ao recuperar lista de produtos');
       }
     }
   );

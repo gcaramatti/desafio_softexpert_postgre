@@ -7,3 +7,10 @@ export const createProductMutation = {
     return await ProductService.createProduct(payload);
   }
 };
+
+export const deleteProductMutation = {
+  key: ['deleteProduct'],
+  mutation: async (id: number): Promise<null> => {
+    return await ProductService.deleteProduct(id);
+  }
+};

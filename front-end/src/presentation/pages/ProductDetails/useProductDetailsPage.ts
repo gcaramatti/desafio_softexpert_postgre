@@ -26,7 +26,7 @@ export function useProductDetailsPage() {
         setValue('categoryId', String(data?.categoryId));
       },
       onError: () => {
-        toast.error('Erro ao recuperar lista de produtos');
+        toast.error('Erro ao recuperar dados do produto');
       }
     }
   );

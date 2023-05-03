@@ -2,12 +2,11 @@ import { ActionButtons, Loader } from '../../components';
 import { Card, CardContainer, Container } from './Products.styles';
 import { useProductsPage } from './useProductsPage';
 import { Mask } from '../../../shared/utils';
-import { IButtonProps } from '../../components/Button/Button.types';
 import { RiDeleteBin6Line, RiEye2Line } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 
 export function ProductsPage(): JSX.Element {
-  const { data, isLoading } = useProductsPage();
+  const { data, isLoading, deleteProduct } = useProductsPage();
 
   const navigate = useNavigate();
 
@@ -17,8 +16,8 @@ export function ProductsPage(): JSX.Element {
 
       {data && data.length > 0 ? (
         <CardContainer>
-          {data.map(value => (
-            <Card>
+          {data.map((value, index) => (
+            <Card key={index}>
               <h2>{value.name}</h2>
               <p>
                 <b>Categoria:</b> {value.categoryName}
@@ -47,7 +46,7 @@ export function ProductsPage(): JSX.Element {
                     icon: <RiDeleteBin6Line />,
                     customButton: { backgroundColor: 'danger', color: 'white' },
                     type: 'button',
-                    onClick: () => console.log('APAGAR TUDO ESQUEÇA')
+                    onClick: deleteProduct(value.id)
                   }
                 ]}
               />
@@ -60,9 +59,3 @@ export function ProductsPage(): JSX.Element {
     </Container>
   );
 }
-
-// categoryId: number;
-// description: string;
-// name: string;
-// price: number;
-// tax: number;

@@ -10,6 +10,7 @@ export function useModalCreateProduct() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<ICreateProductForm>({
     resolver: yupResolver(ModalCreateProductSchema)
@@ -22,6 +23,7 @@ export function useModalCreateProduct() {
     },
     {
       onSuccess: () => {
+        reset();
         toast.success('Produto cadastrado com sucesso');
       }
     }

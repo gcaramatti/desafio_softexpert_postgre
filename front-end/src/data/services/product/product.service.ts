@@ -29,6 +29,12 @@ class ProductService {
 
     return GetAndStoreProductMapper.toDomain(data.data);
   }
+
+  async deleteProduct(id: number): Promise<null> {
+    const { data } = await api.delete(`/products/${id}`);
+
+    return data;
+  }
 }
 
 export default new ProductService();

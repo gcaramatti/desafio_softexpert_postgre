@@ -97,6 +97,10 @@ export const GlobalStyles = createGlobalStyle`
         background: ${({ theme }) => theme.colors.success};
     }
 
+    .Toastify__toast--warning {
+        background: ${({ theme }) => theme.colors.primary} !important;
+    }
+
     .Toastify__progress-bar {
         background-color: rgb(255, 255, 255, 0.4);
     }

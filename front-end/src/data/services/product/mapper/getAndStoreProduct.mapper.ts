@@ -23,7 +23,7 @@ class GetAndStoreProductMapper {
       name: formData.name,
       description: formData.description,
       price: Format.parseToFloat(formData.price),
-      tax: Format.parseToFloat(formData.tax),
+      tax: parseFloat(formData.tax),
       category_id: Format.stringToInteger(formData.categoryId)
     };
   }
