@@ -1,19 +1,31 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ModalCreateProductSchema } from './ModalCreateProduct.schema';
-import { useMutation } from 'react-query';
+import { CreateProductSchema } from './ModalCreateProduct.schema';
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation
+} from 'react-query';
 import { createProductMutation } from '../../../../../data/queries/product/product.mutations';
-import { ICreateProductForm } from '../../../../../data/services/product/productService.types';
+import {
+  ICreateProductForm,
+  IProduct
+} from '../../../../../data/services/product/productService.types';
 import { toast } from 'react-toastify';
+import { IUseModalCreateProductParams } from './ModalCreateProduct.types';
 
-export function useModalCreateProduct() {
+export function useModalCreateProduct({
+  refetchProductQuery,
+  onClose
+}: IUseModalCreateProductParams) {
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors }
   } = useForm<ICreateProductForm>({
-    resolver: yupResolver(ModalCreateProductSchema)
+    resolver: yupResolver(CreateProductSchema)
   });
 
   const mutation = useMutation(
@@ -23,8 +35,10 @@ export function useModalCreateProduct() {
     },
     {
       onSuccess: () => {
+        refetchProductQuery();
         reset();
         toast.success('Produto cadastrado com sucesso');
+        onClose();
       }
     }
   );

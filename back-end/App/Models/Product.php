@@ -74,7 +74,27 @@ class Product {
                 return null;
             }
 
-            return 'success';
+            return ['data' => null];
+        } else {
+            print_r($stmt->errorInfo());
+            return null;
+        }
+    }
+
+    public function update($id) {
+        $sql = "UPDATE products SET name = ?, description = ?, price = ?, tax = ?, category_id = ? WHERE id = " . $id;
+
+        $stmt = Model::getConn()->prepare($sql);
+        $stmt->bindValue(1, $this->name);
+        $stmt->bindValue(2, $this->description);
+        $stmt->bindValue(3, $this->price);
+        $stmt->bindValue(4, $this->tax);
+        $stmt->bindValue(5, $this->category_id);
+
+        if($stmt->execute()) {
+            $product = $stmt->fetch(PDO::FETCH_OBJ);
+
+            return ['data' => null];
         } else {
             print_r($stmt->errorInfo());
             return null;

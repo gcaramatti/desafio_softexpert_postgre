@@ -1,14 +1,27 @@
-import { Button, Loader } from '../../components';
+import { useNavigate } from 'react-router-dom';
+import { ActionButtons, Button, Loader } from '../../components';
 import { Container, Table } from './Categories.styles';
 import { useCategoriesPage } from './useCategoriesPage';
-import { RiDeleteBin6Line } from 'react-icons/ri';
+import { RiDeleteBin6Line, RiHome4Line } from 'react-icons/ri';
 
 export function CategoriesPage(): JSX.Element {
   const { data, isLoading, deleteCategory } = useCategoriesPage();
+  const navigate = useNavigate();
 
   return (
     <Container>
       <Loader isLoading={isLoading} />
+      <ActionButtons
+        actionButtonsArray={[
+          {
+            children: 'Ir para home',
+            icon: <RiHome4Line />,
+            type: 'button',
+            onClick: () => navigate('/')
+          }
+        ]}
+      />
+
       <Table>
         <thead>
           <tr>

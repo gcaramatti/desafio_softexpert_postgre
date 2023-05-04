@@ -14,6 +14,34 @@ export interface ISaleSummary {
   totalItems: number;
 }
 
+export interface ISaleDetails {
+  id: number;
+  saleId: number;
+  productId: number;
+  quantity: number;
+  unitPrice: number;
+  totalProduct: string;
+  totalTax: string;
+  tax: number;
+  createdAt: string;
+  productName: string;
+  description: string;
+}
+
+export interface IPersistenceSaleDetails {
+  id: number;
+  sale_id: number;
+  product_id: number;
+  quantity: number;
+  unit_price: number;
+  total_product: number;
+  total_tax: number;
+  tax: number;
+  created_at: string;
+  product_name: string;
+  description: string;
+}
+
 export interface ISale {
   productId: string;
   quantity: string;

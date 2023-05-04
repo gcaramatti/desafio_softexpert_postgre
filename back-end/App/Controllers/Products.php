@@ -38,6 +38,27 @@ class Products extends Controller {
         }
     }
 
+    public function update($id) {
+        $formData = $this->getRequestBody();
+
+        $model = $this->model("Product");
+        $model->name = $formData->name;
+        $model->description = $formData->description;
+        $model->price = $formData->price;
+        $model->tax = $formData->tax;
+        $model->category_id = $formData->category_id;
+
+        $model = $model->update($id);
+
+        if($model) {
+            http_response_code(204);
+            echo json_encode($model);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => "Erro ao inserir categoria"]);
+        }
+    }
+
     public function find($id) {
         $model = $this->model("Product");
 

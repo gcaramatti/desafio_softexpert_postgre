@@ -7,23 +7,35 @@ import {
   Wrapper
 } from './ProductDetails.styles';
 import { useProductDetailsPage } from './useProductDetailsPage';
-import { Mask } from '../../../shared/utils';
-import { IButtonProps } from '../../components/Button/Button.types';
-import { RiDeleteBin6Line, RiEye2Line } from 'react-icons/ri';
+import { RiHome4Line } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 export function ProductDetailsPage(): JSX.Element {
   const {
     data,
     isLoading,
     control,
+    errors,
     editActionButtons,
     sendFormActionButtons,
     disabled,
     selectCategoriesOptions
   } = useProductDetailsPage();
 
+  const navigate = useNavigate();
+
   return (
     <Container>
+      <ActionButtons
+        actionButtonsArray={[
+          {
+            children: 'Ir para home',
+            icon: <RiHome4Line />,
+            type: 'button',
+            onClick: () => navigate('/')
+          }
+        ]}
+      />
       <Loader isLoading={isLoading} />
 
       {data ? (
@@ -39,6 +51,8 @@ export function ProductDetailsPage(): JSX.Element {
                   control={control}
                   name='name'
                   placeholder='Nome'
+                  maxLength={100}
+                  errorMessage={errors?.name?.message as string}
                 />
 
                 <Select
@@ -47,6 +61,7 @@ export function ProductDetailsPage(): JSX.Element {
                   name='categoryId'
                   options={selectCategoriesOptions}
                   disabled={disabled}
+                  errorMessage={errors?.categoryId?.message as string}
                 />
 
                 <InputText
@@ -54,6 +69,7 @@ export function ProductDetailsPage(): JSX.Element {
                   control={control}
                   name='description'
                   placeholder='Descrição'
+                  errorMessage={errors?.description?.message as string}
                 />
 
                 <InputText
@@ -61,6 +77,7 @@ export function ProductDetailsPage(): JSX.Element {
                   control={control}
                   name='price'
                   placeholder='Preço em R$'
+                  errorMessage={errors?.price?.message as string}
                 />
 
                 <InputText
@@ -68,6 +85,7 @@ export function ProductDetailsPage(): JSX.Element {
                   control={control}
                   name='tax'
                   placeholder='Taxa de impostos em %'
+                  errorMessage={errors?.tax?.message as string}
                 />
               </FormFields>
               {!disabled ? (
@@ -84,9 +102,3 @@ export function ProductDetailsPage(): JSX.Element {
     </Container>
   );
 }
-
-// categoryId: number;
-// description: string;
-// name: string;
-// price: number;
-// tax: number;

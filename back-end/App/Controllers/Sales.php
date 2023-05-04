@@ -49,7 +49,7 @@ class Sales extends Controller {
     public function find($id) {
         $model = $this->model("Sale");
 
-        $categoryList = $model->show($id);
+        $categoryList = $model->getSaleDetails($id);
 
         if(!$categoryList) {
             http_response_code(204);

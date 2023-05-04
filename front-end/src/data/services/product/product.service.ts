@@ -3,7 +3,8 @@ import GetAndStoreProductMapper from './mapper/getAndStoreProduct.mapper';
 import {
   ICreateProductForm,
   IPersistenceProduct,
-  IProduct
+  IProduct,
+  IUpdateProductForm
 } from './productService.types';
 
 class ProductService {
@@ -11,6 +12,15 @@ class ProductService {
     const { data } = await api.post(
       '/products',
       GetAndStoreProductMapper.toPersistence(payload)
+    );
+
+    return data;
+  }
+
+  async updateProduct(payload: IUpdateProductForm): Promise<null> {
+    const { data } = await api.put(
+      `/products/${payload.id}`,
+      GetAndStoreProductMapper.toPersistence(payload.data)
     );
 
     return data;

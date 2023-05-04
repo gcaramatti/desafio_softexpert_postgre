@@ -1,6 +1,5 @@
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
-import { getAllProductsQuery } from '../../../../../data/queries/product/product.queries';
+import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import { Format, Mask } from '../../../../../shared/utils';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,10 +9,13 @@ import {
   ISale,
   ISaleHookForm
 } from '../../../../../data/services/sale/saleService.types';
+import { IUseModalSellProductsParams } from './ModalSellProducts.types';
 
-export function useModalSellProducts() {
-  const selectProductOptions: { value: string; label: string }[] = [];
-
+export function useModalSellProducts({
+  refetchSalesQuery,
+  allProducts,
+  onClose
+}: IUseModalSellProductsParams) {
   const {
     control,
     handleSubmit,
@@ -62,6 +64,13 @@ export function useModalSellProducts() {
     createSaleMutation.key,
     async (payload: ISale[]) => {
       return createSaleMutation.mutation(payload);
+    },
+    {
+      onSuccess: () => {
+        refetchSalesQuery();
+        toast.success('Venda realizada com sucesso!');
+        onClose();
+      }
     }
   );
 
@@ -71,29 +80,6 @@ export function useModalSellProducts() {
       mutation.mutate(data.selledItems);
     });
   }
-
-  const { data: allProducts, isLoading: isLoadingProductsQuery } = useQuery(
-    getAllProductsQuery.key,
-    getAllProductsQuery.query,
-    {
-      onSuccess: data => {
-        localStorage.removeItem('selectProductOptions');
-
-        data.map(value => {
-          selectProductOptions.push({
-            value: String(value.id),
-            label: value.name
-          });
-        });
-
-        if (!localStorage.getItem('selectProductOptions'))
-          localStorage.setItem(
-            'selectProductOptions',
-            JSON.stringify(selectProductOptions)
-          );
-      }
-    }
-  );
 
   function onBlurProductField(index: number) {
     const selectedProduct = watch(`selledItems.${index}.productId`);
@@ -115,7 +101,7 @@ export function useModalSellProducts() {
     const selectedProduct = watch(`selledItems.${index}.productId`);
     if (!selectedProduct) {
       reset();
-      toast.error('Você deve selecionar um produto antes');
+      toast.warn('Você deve selecionar um produto!');
     } else {
       const quantity = watch(`selledItems.${index}.quantity`);
       const unitPrice = watch(`selledItems.${index}.price`);
@@ -146,7 +132,7 @@ export function useModalSellProducts() {
     fields,
     control,
     onSubmit,
-    isLoading: isLoadingProductsQuery,
+    isLoading: mutation.isLoading,
     onBlurProductField,
     onBlurQuantityField,
     selectProdOptions,

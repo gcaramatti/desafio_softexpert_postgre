@@ -5,9 +5,13 @@ import { useModalCreateProdCategory } from './useModalCreateProdCategory';
 export function ModalCreateProdCategory({
   isOpen,
   title,
-  onClose
+  onClose,
+  refetchCatQuery
 }: IModalCreateProdCategoryProps): JSX.Element {
-  const { control, onSubmit, isLoading, errors } = useModalCreateProdCategory();
+  const { control, onSubmit, isLoading, errors } = useModalCreateProdCategory({
+    refetchCatQuery,
+    onClose
+  });
   return (
     <Modal
       isOpen={isOpen}

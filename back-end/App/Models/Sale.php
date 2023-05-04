@@ -48,4 +48,25 @@ class Sale {
         }
     }
 
+    public function getSaleDetails($id) {
+        $sql = "SELECT si.*, s.created_at, p.name AS product_name, p.description 
+        FROM sale_items si 
+        JOIN sales s 
+        ON si.sale_id = s.id 
+        JOIN products p 
+        ON p.id = si.product_id 
+        WHERE s.id = " . $id;
+
+        $stmt = Model::getConn()->prepare($sql);
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0) {
+            $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            return $rows;
+        } else {
+            return null;
+        }
+    }
+
 }

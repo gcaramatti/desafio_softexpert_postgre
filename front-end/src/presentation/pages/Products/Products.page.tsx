@@ -2,7 +2,7 @@ import { ActionButtons, Loader } from '../../components';
 import { Card, CardContainer, Container } from './Products.styles';
 import { useProductsPage } from './useProductsPage';
 import { Mask } from '../../../shared/utils';
-import { RiDeleteBin6Line, RiEye2Line } from 'react-icons/ri';
+import { RiDeleteBin6Line, RiEye2Line, RiHome4Line } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 
 export function ProductsPage(): JSX.Element {
@@ -12,6 +12,16 @@ export function ProductsPage(): JSX.Element {
 
   return (
     <Container>
+      <ActionButtons
+        actionButtonsArray={[
+          {
+            children: 'Ir para home',
+            icon: <RiHome4Line />,
+            type: 'button',
+            onClick: () => navigate('/')
+          }
+        ]}
+      />
       <Loader isLoading={isLoading} />
 
       {data && data.length > 0 ? (

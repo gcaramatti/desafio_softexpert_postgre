@@ -22,6 +22,7 @@ class Mask {
 
       case 'money':
         return parseFloat(value).toFixed(2).toString().replace('.', ',');
+
       default:
         return value;
     }

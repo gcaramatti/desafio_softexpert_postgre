@@ -4,7 +4,8 @@ import { Card, CardWrapper, Container } from './Home.styles';
 import {
   RiMoneyDollarCircleLine,
   RiShoppingCart2Line,
-  RiPriceTag3Line
+  RiPriceTag3Line,
+  RiEye2Line
 } from 'react-icons/ri';
 import { useHomePage } from './useHomePage';
 import {
@@ -13,9 +14,13 @@ import {
   ModalSellProducts
 } from './components';
 import { Format, Mask } from '../../../shared/utils';
+import { useNavigate } from 'react-router-dom';
 
 export function HomePage(): JSX.Element {
-  const { setModalOpen, modalOpen, isLoading, allSales } = useHomePage();
+  const { setModalOpen, modalOpen, isLoading, allSales, refetch, allProducts } =
+    useHomePage();
+
+  const navigate = useNavigate();
 
   const actionButtons: IButtonProps[] = [
     {
@@ -47,24 +52,28 @@ export function HomePage(): JSX.Element {
         isOpen={modalOpen === 'newProduct'}
         title='Novo Produto'
         onClose={() => setModalOpen('closed')}
+        refetchProductQuery={refetch.refetchProductsQuery}
       />
 
       <ModalCreateProdCategory
         isOpen={modalOpen === 'newCategory'}
         title='Cadastrar Categoria'
         onClose={() => setModalOpen('closed')}
+        refetchCatQuery={refetch.refetchCatQuery}
       />
 
       <ModalSellProducts
         isOpen={modalOpen === 'sell'}
         title='Realizar Venda'
         onClose={() => setModalOpen('closed')}
+        refetchSalesQuery={refetch.refetchSalesQuery}
+        allProducts={allProducts}
       />
 
       <CardWrapper>
-        {allSales ? (
-          allSales.map(value => (
-            <Card>
+        {allSales !== undefined ? (
+          allSales.map((value, index) => (
+            <Card key={index}>
               <h2>Venda {value.id}</h2>
 
               <p>
@@ -81,6 +90,17 @@ export function HomePage(): JSX.Element {
               <p>
                 <b>Realizada em:</b> {Format.formatDate(value.createdAt)}
               </p>
+
+              <ActionButtons
+                actionButtonsArray={[
+                  {
+                    children: 'Detalhes',
+                    icon: <RiEye2Line />,
+                    type: 'button',
+                    onClick: () => navigate(`/sale/${value.id}`)
+                  }
+                ]}
+              />
             </Card>
           ))
         ) : (

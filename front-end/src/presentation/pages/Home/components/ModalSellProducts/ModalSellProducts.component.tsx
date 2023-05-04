@@ -20,7 +20,9 @@ import { IButtonProps } from '../../../../components/Button/Button.types';
 export function ModalSellProducts({
   isOpen,
   title,
-  onClose
+  onClose,
+  refetchSalesQuery,
+  allProducts
 }: IModalSellProductsProps): JSX.Element {
   const {
     fields,
@@ -32,7 +34,7 @@ export function ModalSellProducts({
     onBlurQuantityField,
     selectProdOptions,
     errors
-  } = useModalSellProducts();
+  } = useModalSellProducts({ refetchSalesQuery, allProducts, onClose });
 
   const actionButtons: IButtonProps[] = [
     {
@@ -107,7 +109,7 @@ export function ModalSellProducts({
               <InputText
                 control={control}
                 name={`selledItems.${index}.tax`}
-                placeholder='Valor dos impostos em %'
+                placeholder='Valor de impostos em %'
                 errorMessage={errors.selledItems?.[index]?.tax?.message}
                 disabled
               />

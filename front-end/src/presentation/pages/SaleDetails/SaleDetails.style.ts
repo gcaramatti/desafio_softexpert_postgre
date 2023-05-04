@@ -1,26 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
   padding: 2rem;
-`;
-
-export const CardContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 2rem 1rem;
-`;
-
-export const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: ${({ theme }) => theme.colors.alabaster};
-  border: 0;
-  border-radius: 0.8rem;
-  max-width: 40rem;
-  padding: 2rem;
-  font-size: 1.3rem;
 `;
 
 export const Table = styled.table`
@@ -46,5 +27,17 @@ export const Table = styled.table`
 
   th > div {
     justify-content: flex-start !important;
+  }
+`;
+
+export const Description = styled.div`
+  padding: 2rem;
+  margin: 1rem 0;
+  border-radius: 0.8rem;
+
+  background-color: ${({ theme }) => theme.colors.alabaster};
+
+  p {
+    padding: 1rem 0;
   }
 `;

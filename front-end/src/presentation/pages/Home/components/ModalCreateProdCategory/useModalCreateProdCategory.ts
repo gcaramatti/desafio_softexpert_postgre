@@ -5,8 +5,12 @@ import { ICreateCategoryPayload } from '../../../../../data/services/category/ca
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ModalCreateProdCategorySchema } from './ModalCreateProdCategory.schema';
+import { IUseModalCreateProdCategoryParams } from './ModalCreateProdCategory.types';
 
-export function useModalCreateProdCategory() {
+export function useModalCreateProdCategory({
+  refetchCatQuery,
+  onClose
+}: IUseModalCreateProdCategoryParams) {
   const {
     control,
     handleSubmit,
@@ -24,7 +28,9 @@ export function useModalCreateProdCategory() {
     {
       onSuccess: () => {
         reset();
+        refetchCatQuery();
         toast.success('Categoria cadastrada com sucesso!');
+        onClose();
       },
       onError: () => {
         toast.error('Erro ao cadastrar categoria');

@@ -1,13 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Container } from './Header.styles';
-import logo from '/vite.svg';
+import realLogo from '/SoftExpert.png';
 
 export function Header(): JSX.Element {
   const location = useLocation();
 
   return (
     <Container>
-      <img src={logo} />
+      <img src={realLogo} />
 
       <ul>
         <li>Olá, usuário!</li>

@@ -30,3 +30,8 @@ export interface ICreateProductForm {
   price: string;
   tax: string;
 }
+
+export interface IUpdateProductForm {
+  id: number;
+  data: ICreateProductForm;
+}

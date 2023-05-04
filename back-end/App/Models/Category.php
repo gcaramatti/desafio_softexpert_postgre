@@ -72,7 +72,7 @@ class Category {
                 return null;
             }
 
-            return 'success';
+            return ['data' => null];
         } else {
             print_r($stmt->errorInfo());
             return null;

@@ -5,10 +5,11 @@ import { useModalCreateProduct } from './useModalCreateProduct';
 export function ModalCreateProduct({
   isOpen,
   title,
-  onClose
+  onClose,
+  refetchProductQuery
 }: IModalCreateProductProps): JSX.Element {
   const { control, errors, onSubmit, selectCategoriesOptions } =
-    useModalCreateProduct();
+    useModalCreateProduct({ refetchProductQuery, onClose });
   return (
     <Modal
       isOpen={isOpen}
@@ -20,6 +21,7 @@ export function ModalCreateProduct({
         control={control}
         name='name'
         placeholder='Nome'
+        maxLength={100}
         errorMessage={errors.name?.message as string}
       />
 
