@@ -8,13 +8,28 @@ export const Container = styled.div`
 export const CardWrapper = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
+  justify-content: center;
+  min-width: 40rem;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (min-width: 2000px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media screen and (min-width: 1800px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media screen and (max-width: 1799px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 800px) {
     grid-template-columns: repeat(1, 1fr);
-    justify-content: center;
-    min-width: 40rem;
   }
 `;
 

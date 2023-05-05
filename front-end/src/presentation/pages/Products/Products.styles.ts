@@ -11,15 +11,15 @@ export const CardContainer = styled.div`
   grid-template-columns: repeat(6, 1fr);
   gap: 2rem 1rem;
 
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: 1800px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     grid-template-columns: repeat(1, 1fr);
     justify-items: center;
   }
@@ -32,13 +32,8 @@ export const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.alabaster};
   border: 0;
   border-radius: 0.8rem;
-  max-width: 40rem;
+  max-width: 50rem;
+  min-width: 40rem;
   padding: 2rem;
   font-size: 1.3rem;
-
-  @media screen and (max-width: 600px) {
-    grid-template-columns: repeat(1, 1fr);
-    justify-content: center;
-    min-width: 40rem;
-  }
 `;
